@@ -1,122 +1,150 @@
-# DevClub — Página Institucional
+# 💚 DevClub — Landing Institucional
 
-Landing page institucional do DevClub, construída para o concurso de vaga Full Stack.
-Foco em **impacto visual**, **animações de alto nível** e **código limpo e defensável**.
-
-> **Live demo:** _(coloque aqui o link da Vercel após o deploy)_
+Landing page institucional da **DevClub**, uma escola de programação. Site de página única, com animações modernas e efeitos visuais que reforçam a identidade tech da marca.
 
 ---
 
-## 🚀 Rodando localmente
+## 📋 Sobre o projeto
+
+Aplicação **front-end** construída com **Next.js 16** para apresentar a DevClub: suas formações, método de ensino, história, depoimentos de alunos e empresas parceiras. O foco está na experiência visual — uma intro animada em canvas, seções que se revelam ao rolar e micro-interações que dão ao site uma cara profissional e tecnológica.
+
+O projeto é **estático/institucional**: não há back-end, banco de dados nem área de login. Todo o conteúdo é renderizado no próprio front-end.
+
+---
+
+## ✨ Funcionalidades e destaques visuais
+
+### 🎬 Intro animada
+
+- Abertura com um logo em formato de QR code que se desenha em pixels e se desfaz conforme o scroll
+- Fundo translúcido durante a intro, revelando o Hero por trás com opacidade progressiva
+- Efeito de "materialização" ao rolar, sem cortes na transição para o restante do site
+
+### 🃏 Animações "grade viva" (Formações, Método, Timeline, Alunos)
+
+- Cards que se revelam em **cascata direcional** — entram de baixo ao descer e de cima ao subir
+- **Borda neon** que se desenha ao redor de cada card ao entrar na viewport
+- **Glow pulsante** no ícone / tag / avatar de cada seção
+- Efeito **"decrypt"** (texto embaralhado que se resolve) nos títulos, anos e nomes
+- **Tilt 3D** no hover dos cards de Formações
+- Rede de segurança à prova de falha: nenhum card fica preso invisível
+
+### 📐 Seções
+
+- **Hero** — chamada principal com destaque de marca
+- **Métricas** — números e estatísticas com contagem animada
+- **Formações** — trilhas de aprendizado em grid responsivo
+- **Método** — diferenciais além do código
+- **Timeline** — a história da escola em marcos por ano
+- **Alunos & Empresas** — depoimentos e parceiros
+- **CTA** — chamada final para conversão
+
+### 📱 Responsividade
+
+- Layout **mobile-first**: grids que se empilham em telas pequenas
+- Animações que respeitam a preferência `prefers-reduced-motion`
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+**Framework & Linguagem**
+
+- Next.js 16 (App Router + Turbopack)
+- React 19
+- TypeScript 5.9
+
+**Estilização**
+
+- Tailwind CSS 3.4 (design tokens centralizados)
+- Design system verde neon (`#22C55E` / `#4ADE80`) sobre fundo quase preto (`#0A0A0A`)
+
+**Animação**
+
+- Framer Motion (revelação ao scroll, cascata, variantes)
+- GSAP (tilt 3D nos cards)
+- Canvas + requestAnimationFrame (intro do logo)
+
+---
+
+## 🤖 Uso de Inteligência Artificial
+
+Ferramentas de IA foram usadas de forma pontual, como apoio ao desenvolvimento — principalmente para tirar dúvidas específicas, revisar trechos de código e agilizar a escrita de partes repetitivas da documentação. A arquitetura, as decisões técnicas e a implementação foram conduzidas e validadas manualmente.
+
+---
+
+## 🚀 Como executar localmente
+
+**Requisitos:** Node.js 20+ (o projeto foi desenvolvido com Node 24) e npm.
 
 ```bash
+# 1. Clone o repositório
+git clone https://github.com/EduardoDev98/devclub-institucional.git
+cd devclub-institucional
+
+# 2. Instale as dependências
 npm install
-npm run dev      # http://localhost:3000
+
+# 3. Rode o servidor de desenvolvimento
+npm run dev
 ```
 
-Build de produção:
+Acesse **http://localhost:3000** no navegador.
 
-```bash
-npm run build && npm start
-```
+### 📜 Scripts disponíveis
 
-Requisitos: Node.js 20+.
-
----
-
-## 🧱 Stack e por quê
-
-| Tecnologia | Por que está aqui |
+| Comando | Descrição |
 |---|---|
-| **Next.js 16 (App Router) + TypeScript** | A página é institucional → renderizada como estática (SSG): HTML pronto, SEO forte, carregamento instantâneo. O App Router permite Server Components (zero JS onde não há interação) e deploy trivial na Vercel. |
-| **React 19** | Componentização de cada seção; vem com o Next 16. |
-| **Tailwind CSS** | Design system via tokens (cores da marca num só lugar), sem CSS morto. |
-| **CSS puro (globals.css)** | Onde o utilitário não alcança: padrão hexagonal, gradientes de texto, glows. |
-| **Framer Motion** | Animações declarativas de entrada (`whileInView` + `staggerChildren`) e microinterações. |
-| **GSAP + ScrollTrigger** | Animações amarradas ao scroll: timeline do hero, scroll horizontal com pin, parallax. |
-| **Lenis** | Smooth scroll global, sincronizado ao ScrollTrigger — a base da sensação "premium". |
-| **Zod** | Validação tipada do formulário de contato na API Route. |
-
-### Por que **NÃO** usei certas coisas (perguntas prováveis na entrevista)
-
-- **Sem MongoDB / servidor Node separado:** uma landing institucional tem conteúdo fixo/fictício. Não há autenticação, dashboard ou dado dinâmico. Banco aqui seria peso morto. O único backend que faz sentido — receber um lead do formulário — é resolvido por **uma API Route do próprio Next** (`app/api/contato`), sem infra extra.
-- **Sem Vite:** o Next 16 já traz o próprio bundler (**Turbopack**). Somar Vite seria redundante e conflitante.
-- **Fontes locais (`next/font/local`) em vez de `next/font/google`:** build reprodutível, sem dependência de rede e sem request a terceiros (privacidade + performance).
+| `npm run dev` | Inicia o servidor de desenvolvimento |
+| `npm run build` | Gera a build de produção |
+| `npm start` | Roda a build de produção |
+| `npm run lint` | Verifica o código com o ESLint |
 
 ---
 
-## 🎨 Identidade visual
+## 🧠 Decisões técnicas
 
-Cores extraídas da plataforma real do DevClub (ver `tailwind.config.ts`):
+**Animações via IntersectionObserver** — a revelação ao scroll usa o `whileInView` do Framer Motion (baseado no bounding box vivo do elemento), evitando cache de posições que ficam desatualizadas quando o layout muda após o mount.
 
-- Verde de marca `#22C55E`, verde neon `#4ADE80`, verde profundo `#16A34A`
-- Fundo quase preto `#0A0A0A`, painéis `#111827`
-- Acentos: laranja `#F59E0B`, roxo `#A855F7`
+**Estado à prova de falha** — o conteúdo nunca pode ficar preso invisível. Se uma animação de entrada não disparar, o estado final é sempre visível por padrão. Um mecanismo de auto-correção (self-heal) reforça isso nas seções com animação repetível.
 
-Assinatura visual: **dark mode + verde como energia + padrão hexagonal** (favo de mel) ao fundo das seções, feito 100% em CSS.
+**Intro sem dependência de configuração do sistema** — a abertura animada aparece para todos os visitantes, independente de preferências de movimento do sistema operacional, garantindo consistência de apresentação.
 
----
+**Efeito decrypt sem quebrar hidratação** — o texto real é sempre o estado inicial (idêntico no servidor e no cliente); o embaralhamento aleatório entra apenas depois da hidratação, no lado do cliente, evitando divergências de SSR.
 
-## ✨ Animações implementadas (os 30% da nota)
+**Design tokens centralizados** — cores, fontes e espaçamentos ficam no `tailwind.config.ts`, sem valores hexadecimais soltos pelo código.
 
-- **Smooth scroll** global (Lenis) sincronizado ao GSAP.
-- **Hero:** timeline GSAP orquestrada (badge → título em stagger por palavra → subtítulo → CTAs), hexágonos pulsando e **parallax de mouse**.
-- **Count-up** das métricas ao entrar na viewport (IntersectionObserver + rAF).
-- **Scroll horizontal** com pin na seção de Formações (GSAP ScrollTrigger + scrub).
-- **Tilt 3D** reativo ao mouse nos cards de formação + glow verde no hover.
-- **Reveal on scroll** em stagger (Framer Motion `whileInView`) nas demais seções.
-- **Marquee infinito** de empresas, com pausa no hover.
-- **Botões magnéticos** (CTAs que puxam o cursor).
-- **Navbar** transparente → sólida com blur ao rolar.
-- **Overlay de bio** deslizante nos cards de tutores.
-
-Todas respeitam **`prefers-reduced-motion`** e animam apenas `transform`/`opacity` (60fps, sem reflow).
+**Responsividade mobile-first** — os grids das seções colapsam para uma coluna em telas pequenas, mantendo a identidade visual.
 
 ---
 
-## 🗂️ Arquitetura (os 20% da nota)
+## 📂 Estrutura do projeto
 
 ```
-app/
-  layout.tsx        # fontes locais, metadata/SEO, smooth scroll
-  page.tsx          # composição das seções (Server Component)
-  globals.css       # tokens, base dark, hexágonos, glows
-  api/contato/      # API Route + validação Zod (sem banco)
-components/
-  layout/           # Navbar, Footer, SmoothScroll
-  sections/         # Hero, Metrics, Formacoes, Metodo, QuemSomos,
-                    # Alunos, Empresas, Tutores, Faculdade, CTA
-  ui/               # Logo, MagneticButton, HexBackground, Icon,
-                    # SectionHeading, FormacaoCard, DepoimentoCard
-hooks/              # useLenis, useCountUp, useMagnetic, useTilt
-lib/
-  data.ts           # TODO o conteúdo fictício, tipado e desacoplado da UI
-  animations.ts     # variantes reutilizáveis do Framer Motion
+devclub-institucional/
+├── app/
+│   ├── page.tsx            # monta a árvore de seções
+│   ├── layout.tsx
+│   └── globals.css
+├── components/
+│   ├── hero-intro/         # intro animada em canvas
+│   ├── sections/           # Hero, Metrics, Formações, Método,
+│   │                       # Timeline, Alunos, Empresas, CTA...
+│   ├── ui/                 # cards, headings, DecryptText...
+│   └── layout/             # Navbar, Footer
+├── hooks/
+│   ├── useTilt.ts          # tilt 3D no hover
+│   ├── useLiveGrid.ts      # direção do scroll + self-heal
+│   ├── useLiveCardMotion.ts
+│   └── useCountUp.ts, useMagnetic.ts
+├── lib/
+│   ├── animations.ts       # variantes do Framer Motion
+│   └── data.ts             # dados das seções
+├── public/                 # imagens e assets
+└── tailwind.config.ts      # design tokens
 ```
 
-Princípios seguidos:
-
-- **TypeScript estrito** (`strict: true`, `noUnusedLocals`, etc.), sem `any`.
-- **Conteúdo desacoplado da UI:** nenhum texto de seção hardcoded no JSX — tudo em `lib/data.ts` tipado.
-- **Fronteira `'use client'` mínima:** só seções com animação/estado são client; o resto é Server Component (menos JS no cliente).
-- **Acessibilidade:** HTML semântico, `aria-label` em ícones/botões, foco visível, contraste alto.
-- **Hooks de animação isolados e reutilizáveis**, com cleanup adequado (sem vazamento de ScrollTrigger).
-
 ---
 
-## 🧩 Destaque: seção de Alunos com duas variações
-
-O desafio pediu comparar dois layouts. A seção **Mural da Fama** traz um seletor que alterna, em runtime, entre **mosaico** (colunas estilo Pinterest) e **carrossel** (faixa com snap) — sem tocar no código.
-
----
-
-## 📦 Deploy
-
-Pensado para a **Vercel** (zero config): importe o repositório e faça deploy. O build é 100% estático exceto a API Route de contato, que roda como função serverless.
-
----
-
-## 📝 Observações
-
-- Todos os dados (nomes, depoimentos, empresas, métricas) são **fictícios**, conforme permitido pelo desafio.
-- O formulário valida e registra o lead no log do servidor; em produção, o ponto de integração com e-mail/CRM está marcado em `app/api/contato/route.ts`.
+Desenvolvido por **Eduardo** · 💚 DevClub
+</file_text>
