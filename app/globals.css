@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green-primary: #22c55e;
+  --green-neon: #4ade80;
+  --green-deep: #16a34a;
+  --bg-black: #0a0a0a;
+  --bg-panel: #111827;
+  --bg-elevated: #1a1a1a;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-bg-black text-text-primary font-sans antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--green-primary);
+    color: #04120a;
+  }
+
+  /* Foco visível para acessibilidade */
+  :focus-visible {
+    outline: 2px solid var(--green-neon);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Container padrão da página */
+  .container-dev {
+    @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+  }
+
+  /* Texto com gradiente verde (títulos de destaque) */
+  .text-gradient-green {
+    background: linear-gradient(120deg, #4ade80 0%, #22c55e 45%, #16a34a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Cartão base escuro com borda sutil */
+  .card-dark {
+    @apply rounded-2xl border border-[var(--border-subtle)] bg-bg-panel/60 backdrop-blur-sm;
+  }
+}
+
+@layer utilities {
+  /* Padrão de favo de mel (hexágonos) — assinatura visual do DevClub.
+     Feito 100% em CSS com gradientes cônicos repetidos, sem imagem. */
+  .hex-pattern {
+    background-color: transparent;
+    background-image:
+      repeating-linear-gradient(
+        30deg,
+        rgba(34, 197, 94, 0.06) 0 1px,
+        transparent 1px 40px
+      ),
+      repeating-linear-gradient(
+        150deg,
+        rgba(34, 197, 94, 0.06) 0 1px,
+        transparent 1px 40px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(34, 197, 94, 0.06) 0 1px,
+        transparent 1px 23px
+      );
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  /* Brilho radial verde para fundos de seção */
+  .glow-radial {
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(34, 197, 94, 0.18) 0%,
+      transparent 60%
+    );
+  }
+
+  .glow-radial-sm {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(34, 197, 94, 0.12) 0%,
+      transparent 65%
+    );
+  }
+
+  /* Divisor com linha verde brilhante (como o da plataforma) */
+  .divider-green {
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--green-primary),
+      var(--green-neon),
+      var(--green-primary),
+      transparent
+    );
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  }
+}
+
+/* Respeita quem pede menos movimento: desliga animações de longa duração */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== Marquee de empresas (robusto, independente do Tailwind) ===== */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 55s linear infinite;
+}
+
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Mesmo com "reduzir movimento" ligado, mantemos um giro bem lento
+   (o desafio pede os nomes rodando). Só desaceleramos bastante. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-duration: 120s;
+  }
+}
+
+/* ===== Esconder a barra de rolagem (mantém o scroll funcionando) ===== */
+html {
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge antigo */
+}
+html::-webkit-scrollbar {
+  display: none;                 /* Chrome/Edge/Safari */
+  width: 0;
+  height: 0;
+}
+
+/* ===== Garantir que NENHUMA faixa horizontal mostre barra de rolagem ===== */
+#formacoes ::-webkit-scrollbar,
+#jornada ::-webkit-scrollbar,
+#formacoes::-webkit-scrollbar,
+#jornada::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+#formacoes *,
+#jornada * {
+  scrollbar-width: none !important;
+}
+
+/* ===== Hero atrás do véu da intro (ver components/hero-intro/HeroIntro.tsx) =====
+   Ativado só via classe/var setadas em JS pela própria intro, espelhando o
+   mesmo `progress` que ela já calcula no rAF — sem GSAP, sem cache de posição.
+   Falha segura: sem a classe .intro-active, #top fica 100% normal (estático,
+   opacity 1), exatamente como é hoje. */
+html.intro-active #top {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--intro-progress, 1);
+  pointer-events: none;
+}
